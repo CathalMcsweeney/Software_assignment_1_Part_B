@@ -5,14 +5,124 @@ package gradleproject4;
 
 import LecturerManagementSystem.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.joda.time.DateTime;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
-    public static void main(String[] args) {
-        student_class sc = new student_class("paddy",9,new Date(2000/10/10),"thaing");
-        System.out.println(new App().getGreeting());
+    public static void main(String[] args) throws InterruptedException {
+        student_class s1 = new student_class("paddy",1,new Date(2000/10/01),"45659878");
+        student_class s2 = new student_class("losty",2,new Date(2000/10/02),"12345678");
+        student_class s3 = new student_class("sham",3,new Date(2000/10/03),"98653214");
+        student_class s4 = new student_class("feen",4,new Date(2000/10/04),"78451236");
+        student_class s5 = new student_class("person",5,new Date(2000/10/05),"45658798");
+        student_class s6 = new student_class("personson",6,new Date(2000/10/06),"12326587");
+        
+        module_class m1 = new module_class("programming", "p324");
+        module_class m2 = new module_class("mathematics", "m420");
+        module_class m3 = new module_class("machine Learning", "ml69");
+        module_class m4 = new module_class("Silicone chips", "sc69420");
+        module_class m5 = new module_class("online Golf", "g4lf");
+        
+        lecturer_class l1 = new lecturer_class("dave", 20, new Date(1995/10/06), "89237812");
+        lecturer_class l2 = new lecturer_class("tara", 22, new Date(1993/10/06), "89238127");
+        lecturer_class l3 = new lecturer_class("jake", 21, new Date(1994/10/06), "89723812");
+        
+        course_program_class p1 = new course_program_class("comp sci", new DateTime(2022,9,1,0,0,0,0), new DateTime(2022,9,1,0,0,0,0));
+        course_program_class p2 = new course_program_class("comp eng", new DateTime(2022,9,1,0,0,0,0), new DateTime(2022,9,1,0,0,0,0));
+        
+        //add  modules to courses
+        p1.setCourseModules(m1);
+        p1.setCourseModules(m2);
+        p1.setCourseModules(m4);
+        p2.setCourseModules(m3);
+        p2.setCourseModules(m4);
+        p2.setCourseModules(m1);
+        p1.setCourseModules(m5);
+        p1.setCourseModules(m5);
+        //add students to courses
+        p1.setCourseStudents(s1);
+        p1.setCourseStudents(s2);
+        p1.setCourseStudents(s3);
+        p2.setCourseStudents(s4);
+        p2.setCourseStudents(s5);
+        p2.setCourseStudents(s6);
+        //add students to modules
+        m1.setStudents(s1); m1.setStudents(s2); m1.setStudents(s3);
+        m2.setStudents(s1); m2.setStudents(s2); m2.setStudents(s3);
+        m3.setStudents(s4); m3.setStudents(s5); m3.setStudents(s6);
+        m4.setStudents(s4); m4.setStudents(s5); m4.setStudents(s6);
+        m5.setStudents(s1); m5.setStudents(s2); m5.setStudents(s3);
+        m5.setStudents(s4); m5.setStudents(s5); m5.setStudents(s6);
+        //add lecturer to modules
+        m1.setLecturer(l1);
+        m2.setLecturer(l1);
+        m3.setLecturer(l2);
+        m4.setLecturer(l2);
+        m5.setLecturer(l3);
+        //add course to modules
+        m1.setAssociatedCourses(p1);
+        m2.setAssociatedCourses(p1);
+        m3.setAssociatedCourses(p2);
+        m4.setAssociatedCourses(p2);
+        m5.setAssociatedCourses(p1);
+        m5.setAssociatedCourses(p2);
+        //add modules to lecturers
+        l1.setModulesTaught(m1);
+        l1.setModulesTaught(m2);
+        l2.setModulesTaught(m3);
+        l2.setModulesTaught(m4);
+        l3.setModulesTaught(m5);
+        //add modules to students
+        s1.setModules(m1);
+        s1.setModules(m2);
+        s1.setModules(m5);
+        s2.setModules(m1);
+        s2.setModules(m2);
+        s2.setModules(m5);
+        s3.setModules(m1);
+        s3.setModules(m2);
+        s3.setModules(m5);
+        s4.setModules(m3);
+        s4.setModules(m4);
+        s4.setModules(m5);
+        s5.setModules(m3);
+        s5.setModules(m4);
+        s5.setModules(m5);
+        s6.setModules(m3);
+        s6.setModules(m4);
+        s6.setModules(m5);
+        
+        //add course to students
+        s1.setCourses(p1);
+        s2.setCourses(p1);
+        s3.setCourses(p1);
+        s4.setCourses(p2);
+        s5.setCourses(p2);
+        s6.setCourses(p2);
+        
+        System.out.println(p1.cName);
+        
+        
+        
+        for(module_class i : p1.courseModules){
+            System.out.println(i.modName);
+            
+            for(student_class j : i.students){
+            System.out.println(j.username+" takes Modules: ");
+                
+                
+                
+                for(module_class m : j.modules){
+                    System.out.println("    "+m.modName);
+                }
+                System.out.print(" and course :");
+                for(course_program_class cp : j.courses){
+                    System.out.print(cp.cName);
+                }
+                System.out.println("");
+            }
+        }
     }
 }
