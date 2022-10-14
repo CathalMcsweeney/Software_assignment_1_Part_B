@@ -4,14 +4,16 @@
 package gradleproject4;
 
 import LecturerManagementSystem.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 public class App {
 
     public static void main(String[] args) throws InterruptedException {
+        List<course_program_class> P = new ArrayList<>();
         student_class s1 = new student_class("paddy",1,new Date(2000/10/01),"45659878");
         student_class s2 = new student_class("losty",2,new Date(2000/10/02),"12345678");
         student_class s3 = new student_class("sham",3,new Date(2000/10/03),"98653214");
@@ -31,7 +33,8 @@ public class App {
         
         course_program_class p1 = new course_program_class("comp sci", new DateTime(2022,9,1,0,0,0,0), new DateTime(2022,9,1,0,0,0,0));
         course_program_class p2 = new course_program_class("comp eng", new DateTime(2022,9,1,0,0,0,0), new DateTime(2022,9,1,0,0,0,0));
-        
+        P.add(p1);
+        P.add(p2);
         //add  modules to courses
         p1.setCourseModules(m1);
         p1.setCourseModules(m2);
@@ -40,7 +43,7 @@ public class App {
         p2.setCourseModules(m4);
         p2.setCourseModules(m1);
         p1.setCourseModules(m5);
-        p1.setCourseModules(m5);
+        p2.setCourseModules(m5);
         //add students to courses
         p1.setCourseStudents(s1);
         p1.setCourseStudents(s2);
@@ -101,27 +104,29 @@ public class App {
         s4.setCourses(p2);
         s5.setCourses(p2);
         s6.setCourses(p2);
-        
-        System.out.println(p1.cName);
-        
-        
-        
-        for(module_class i : p1.courseModules){
-            System.out.println(i.modName);
+        for(course_program_class courses : P){
+            System.out.println("#################################################################");
+            System.out.println(courses.cName);
+            System.out.println("#################################################################");
             
-            for(student_class j : i.students){
-            System.out.println(j.username+" takes Modules: ");
-                
-                
-                
-                for(module_class m : j.modules){
-                    System.out.println("    "+m.modName);
+            for(module_class i : p1.courseModules){
+                System.out.println("-----------------------------------------------");
+                System.out.println(i.modName);
+                System.out.println("-----------------------------------------------");
+                for(student_class j : i.students){
+                System.out.println(j.username+" takes Modules: ");
+
+
+
+                    for(module_class m : j.modules){
+                        System.out.println("    "+m.modName);
+                    }
+                    System.out.print(" and course :");
+                    for(course_program_class cp : j.courses){
+                        System.out.print(cp.cName);
+                    }
+                    System.out.println("");
                 }
-                System.out.print(" and course :");
-                for(course_program_class cp : j.courses){
-                    System.out.print(cp.cName);
-                }
-                System.out.println("");
             }
         }
     }
